@@ -9,7 +9,7 @@ export type MerkleProof = {
 const concat = (left: Uint8Array, right: Uint8Array) =>
   keccak256(Buffer.concat([left, right]));
 
-function verifyProof(proof: MerkleProof[], leaf: string, root: string) {
+export function verifyProof(proof: MerkleProof[], leaf: string, root: string) {
   proof = proof.map(({ data, left }) => ({
     left,
     data: hexToBytes(data as string),
@@ -26,5 +26,3 @@ function verifyProof(proof: MerkleProof[], leaf: string, root: string) {
 
   return bytesToHex(data) === root;
 }
-
-module.exports = verifyProof;

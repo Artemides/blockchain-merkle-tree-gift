@@ -2,7 +2,7 @@ import { keccak256 } from "ethereum-cryptography/keccak";
 import { bytesToHex } from "ethereum-cryptography/utils";
 import { MerkleProof } from "./verifyProof";
 
-class MerkleTree {
+export class MerkleTree {
   leaves: Uint8Array[];
   concat: (left: Uint8Array, right: Uint8Array) => Uint8Array;
   constructor(leaves: string[]) {
@@ -70,5 +70,3 @@ class MerkleTree {
     return this._getRoot(layer);
   }
 }
-
-module.exports = MerkleTree;
