@@ -1,4 +1,7 @@
 "use client";
+import { Gift } from "@/Components/Gift";
+import { Gifts } from "@/Components/Gifts";
+import { CoinGift, Rarity } from "@/utils/gifts";
 import Image from "next/image";
 
 import { FormEvent, useEffect, useState } from "react";
@@ -9,6 +12,7 @@ export default function Home() {
   const [fetching, setFetching] = useState(false);
   const [success, setSuccess] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [gifts, setGifts] = useState<CoinGift[]>([]);
 
   useEffect(() => {
     if (!window) return;
@@ -49,8 +53,8 @@ export default function Home() {
         <ReactConfetti width={windowSize.width} height={windowSize.height} />
       )}
       <form
-        className="w-[300px] h-64 flex flex-col justify-center gap-8 bg-slate-900 rounded-lg shadow-lg py-8 px-4 ring-sky-400/50 ring-1"
         onSubmit={(e) => verifyName(e)}
+        className="w-[300px] h-64 flex flex-col justify-center gap-8 bg-slate-900 rounded-lg shadow-lg py-8 px-4 ring-sky-400/50 ring-1"
       >
         <h2 className="text-xl font-bold text-center">Verify Merkle Tree</h2>
         <input
@@ -69,6 +73,7 @@ export default function Home() {
           Verify
         </button>
       </form>
+      <Gifts />
     </main>
   );
 }
