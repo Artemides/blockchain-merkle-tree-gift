@@ -1,6 +1,6 @@
 import { CoinGift } from "./gifts";
 
-export const randomRarityProbabilities = [50, 70, 85, 95, 100];
+export const randomRarityProbabilities = [40, 60, 75, 85, 100];
 
 const getRandomNumber = () => {
   return Math.floor(Math.random() * 100);
@@ -8,6 +8,7 @@ const getRandomNumber = () => {
 
 const pickRandomGiftIndex = () => {
   const randomNumer = getRandomNumber();
+
   const [giftIndex] = randomRarityProbabilities.reduce(
     ([giftIndex, lastProb], prob, idx) => {
       if (randomNumer <= prob && randomNumer >= lastProb) {
@@ -17,6 +18,7 @@ const pickRandomGiftIndex = () => {
     },
     [0, 0]
   );
+  console.log({ randomNumer, giftIndex });
   return giftIndex;
 };
 

@@ -1,9 +1,9 @@
 export enum CoinGift {
-  BTC = "BTC",
-  ETH = "ETH",
-  BNB = "BNB",
-  ADA = "ADA",
   SOL = "SOL",
+  ADA = "ADA",
+  BNB = "BNB",
+  ETH = "ETH",
+  BTC = "BTC",
 }
 export enum Rarity {
   Common = "Common",
