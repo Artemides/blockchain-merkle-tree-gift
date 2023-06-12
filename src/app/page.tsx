@@ -6,6 +6,11 @@ import Image from "next/image";
 import { FormEvent, useEffect, useState } from "react";
 import ReactConfetti from "react-confetti";
 
+type ResponseData = {
+  message: string;
+  gift: Gift;
+};
+
 export default function Home() {
   const [name, setName] = useState("");
   const [fetching, setFetching] = useState(false);
@@ -44,10 +49,12 @@ export default function Home() {
         "Content-Type": "application/json",
       },
     });
-    const responseData = await response.json();
+    const responseData: ResponseData = await response.json();
     if (!response.ok) {
       setSuccess(false);
     } else {
+      const { gift } = responseData;
+      handleSaveLocalStorage(gift);
       setSuccess(true);
     }
 
@@ -57,6 +64,24 @@ export default function Home() {
     }, 3000);
     console.log({ responseData });
   };
+
+  const handleSaveLocalStorage = (gift: Gift) => {
+    setGifts((prevGifts) => {
+      const updatedGifts = [...prevGifts];
+      const giftIndex = updatedGifts.findIndex(
+        (thisGift) => thisGift.symbol === gift.symbol
+      );
+      if (giftIndex >= 0) {
+        updatedGifts[giftIndex].quantity += 1;
+      } else {
+        updatedGifts.push(gift);
+      }
+      localStorage.setItem("gifts", JSON.stringify(updatedGifts));
+
+      return updatedGifts;
+    });
+  };
+
   return (
     <main className=" min-h-screen grid place-items-center  p-24">
       {success && (
