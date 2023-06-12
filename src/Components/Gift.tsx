@@ -7,9 +7,10 @@ type GiftProps = {
   name: string;
   rarity: Rarity;
   symbol: string;
+  amount: number;
 };
 
-export const Gift = ({ name, rarity, symbol }: GiftProps) => {
+export const Gift = ({ name, rarity, symbol, amount }: GiftProps) => {
   const { rarityStyle } = giftRarityColors[rarity];
   return (
     <div
@@ -28,7 +29,7 @@ export const Gift = ({ name, rarity, symbol }: GiftProps) => {
       >
         {rarity}
       </p>
-      <span className="font-bold text-center">10</span>
+      {amount && <span className="font-bold text-center">{amount}</span>}
     </div>
   );
 };

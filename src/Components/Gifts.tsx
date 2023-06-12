@@ -1,15 +1,23 @@
 import React from "react";
+import { Gift as GiftItem, Rarity } from "@/utils/gifts";
 import { Gift } from "./Gift";
-import { Rarity } from "@/utils/gifts";
 
-export const Gifts = () => {
+type GiftsProps = {
+  gifts: GiftItem[];
+};
+
+export const Gifts = ({ gifts }: GiftsProps) => {
   return (
     <section id="gifts" className="flex gap-4">
-      <Gift name="Bitcoin" rarity={Rarity.Ultra} symbol={"BTC"} />
-      <Gift name="Ethereum" rarity={Rarity.Epic} symbol={"ETH"} />
-      <Gift name="Binance" rarity={Rarity.Rare} symbol={"BNB"} />
-      <Gift name="Cardano" rarity={Rarity.Uncommon} symbol={"ADA"} />
-      <Gift name="Solana" rarity={Rarity.Common} symbol={"SOL"} />
+      {gifts.map((gift) => (
+        <Gift
+          key={gift.name}
+          name={gift.name}
+          rarity={gift.rarity}
+          symbol={gift.symbol}
+          amount={gift.quantity}
+        />
+      ))}
     </section>
   );
 };

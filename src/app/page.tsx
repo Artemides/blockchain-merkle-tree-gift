@@ -1,7 +1,6 @@
 "use client";
-import { Gift } from "@/Components/Gift";
 import { Gifts } from "@/Components/Gifts";
-import { CoinGift, Rarity } from "@/utils/gifts";
+import { CoinGift, Gift, Rarity } from "@/utils/gifts";
 import Image from "next/image";
 
 import { FormEvent, useEffect, useState } from "react";
@@ -12,7 +11,18 @@ export default function Home() {
   const [fetching, setFetching] = useState(false);
   const [success, setSuccess] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [gifts, setGifts] = useState<CoinGift[]>([]);
+  const [gifts, setGifts] = useState<Gift[]>([]);
+
+  useEffect(() => {
+    const retrieveGifts = () => {
+      const localStorageGifts = localStorage.getItem("gifts");
+      if (!localStorageGifts) return;
+
+      const retrievedGifts: Gift[] = JSON.parse(localStorageGifts);
+      setGifts(retrievedGifts);
+    };
+    retrieveGifts();
+  }, []);
 
   useEffect(() => {
     if (!window) return;
@@ -73,7 +83,7 @@ export default function Home() {
           Verify
         </button>
       </form>
-      <Gifts />
+      <Gifts gifts={gifts} />
     </main>
   );
 }
