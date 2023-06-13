@@ -1,7 +1,6 @@
 "use client";
 import { Gifts } from "@/Components/Gifts";
 import { CoinGift, Gift, Rarity } from "@/utils/gifts";
-import Image from "next/image";
 
 import { FormEvent, useEffect, useState } from "react";
 import ReactConfetti from "react-confetti";
@@ -10,6 +9,11 @@ type ResponseData = {
   message: string;
   gift: Gift;
 };
+
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_API_URL_PROD
+    : process.env.NEXT_PUBLIC_API_URL_DEV;
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -43,7 +47,7 @@ export default function Home() {
     const data = {
       name,
     };
-    const response = await fetch("http://localhost:3000/api/proof", {
+    const response = await fetch(`${API_URL}proof`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
