@@ -69,8 +69,6 @@ export default function Home() {
       setSuccess(false);
       setErrorState({ error: false, message: "" });
     }, 3000);
-
-    console.log({ responseData });
   };
 
   const handleSaveLocalStorage = (gift: Gift) => {

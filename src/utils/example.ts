@@ -9,8 +9,6 @@ const merkleTreeMain = () => {
   const merkleRootString = bytesToHex(merkleRoot);
   const nameToVerify = "Edmond Carroll PhDs";
   const nameToVerifyIdx = list.findIndex((el) => el === "Edmond Carroll PhD");
-  console.log({ nameToVerifyIdx, merkleRootString, merkleRoot });
   const merkleProof = merkleTree.getProof(nameToVerifyIdx);
   const verified = verifyProof(merkleProof, nameToVerify, merkleRootString);
-  console.log({ verified });
 };

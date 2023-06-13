@@ -5,7 +5,6 @@ import { coinGifts } from "../../../utils/gifts";
 export async function POST(request: NextRequest) {
   const { name } = await request.json();
 
-  console.log({ nameToVerifiy: name });
   const verified = verifyNameInList(name);
   if (!verified)
     return NextResponse.json(

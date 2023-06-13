@@ -18,7 +18,6 @@ const pickRandomGiftIndex = () => {
     },
     [0, 0]
   );
-  console.log({ randomNumer, giftIndex });
   return giftIndex;
 };
 
