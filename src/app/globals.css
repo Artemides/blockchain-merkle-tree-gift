@@ -52,3 +52,6 @@ body {
 .common-rare {
   @apply ring-2 ring-green-500 bg-green-500/30;
 }
+.error {
+  @apply text-red-400 bg-red-400/25;
+}

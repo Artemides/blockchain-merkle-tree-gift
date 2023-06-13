@@ -17,6 +17,7 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [gifts, setGifts] = useState<Gift[]>([]);
+  const [errorState, setErrorState] = useState({ message: "", error: false });
 
   useEffect(() => {
     const retrieveGifts = () => {
@@ -51,6 +52,7 @@ export default function Home() {
     });
     const responseData: ResponseData = await response.json();
     if (!response.ok) {
+      setErrorState({ error: true, message: responseData.message });
       setSuccess(false);
     } else {
       const { gift } = responseData;
@@ -61,7 +63,9 @@ export default function Home() {
     setFetching(false);
     setTimeout(() => {
       setSuccess(false);
+      setErrorState({ error: false, message: "" });
     }, 3000);
+
     console.log({ responseData });
   };
 
@@ -89,7 +93,7 @@ export default function Home() {
       )}
       <form
         onSubmit={(e) => verifyName(e)}
-        className="w-[300px] h-64 flex flex-col justify-center gap-8 bg-slate-900 rounded-lg shadow-lg py-8 px-4 ring-sky-400/50 ring-1"
+        className=" relative w-[300px] h-64 flex flex-col justify-center gap-8 bg-slate-900 rounded-lg shadow-lg py-8 px-4 ring-sky-400/50 ring-1"
       >
         <h2 className="text-xl font-bold text-center">Verify Merkle Tree</h2>
         <input
@@ -107,6 +111,12 @@ export default function Home() {
         >
           Verify
         </button>
+
+        {errorState.error && (
+          <span className=" absolute bottom-4 error text-sm font-medium self-center px-2 py-[1px] rounded text-center">
+            {errorState.message}
+          </span>
+        )}
       </form>
       <Gifts gifts={gifts} />
     </main>
